@@ -34,7 +34,7 @@ This allows your account to run only those two exact commands without a password
 
 ## Settings
 - Battery threshold: `defaults write com.bugrasitemkar.closethelid batteryThreshold 15`
-- Logs: `log show --last 1h --info --predicate 'subsystem == "com.bugrasitemkar.closethelid"'`
+- Logs: `/usr/bin/log show --last 1h --predicate 'subsystem == "com.bugrasitemkar.closethelid"'` (use the full path: in zsh, plain `log` is a different built-in command)
 
 ## Build
 ```

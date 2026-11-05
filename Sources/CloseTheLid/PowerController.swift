@@ -47,7 +47,7 @@ enum PowerController {
         if r.status != 0 {
             log.error("pmset disablesleep \(disabled ? 1 : 0) failed (\(r.status)): \(r.output, privacy: .public)")
         } else {
-            log.info("pmset disablesleep \(disabled ? 1 : 0) OK")
+            log.notice("pmset disablesleep \(disabled ? 1 : 0) OK")
         }
         return r.status == 0
     }

@@ -65,7 +65,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         // Always start passive. Only touch pmset if sleep is currently disabled
         // (e.g. after a crash) and never prompt for a password here.
         if PowerController.isSleepDisabled() {
-            log.info("Sleep was disabled at launch; resetting")
+            log.notice("Sleep was disabled at launch; resetting")
             if !PowerController.setSleepDisabled(false) {
                 // Could not reset silently: reflect reality so the user can deactivate.
                 state = .active(until: nil)
@@ -100,7 +100,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     func applicationWillTerminate(_ notification: Notification) {
         if state.isActive || PowerController.isSleepDisabled() {
-            log.info("Quitting: re-enabling sleep")
+            log.notice("Quitting: re-enabling sleep")
             PowerController.setSleepDisabled(false)
         }
         restoreBrightness()
@@ -333,7 +333,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
         selectedDurationIndex = index
         state = .active(until: duration.map { Date().addingTimeInterval($0) })
-        log.info("Activated (\(duration.map { "\(Int($0))s" } ?? "indefinitely", privacy: .public))")
+        log.notice("Activated (\(duration.map { "\(Int($0))s" } ?? "indefinitely", privacy: .public))")
         startTimer()
         refreshUI()
         checkBattery()
@@ -363,7 +363,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         restoreBrightness()
         state = .passive
         selectedDurationIndex = nil
-        log.info("Deactivated\(reason.map { ": \($0)" } ?? "", privacy: .public)")
+        log.notice("Deactivated\(reason.map { ": \($0)" } ?? "", privacy: .public)")
         refreshUI()
         if let reason { notify("Close The Lid deactivated", reason) }
     }
@@ -424,14 +424,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
               let current = DisplayBrightness.get(), current > 0.5 else { return }
         defaults.set(Double(current), forKey: Keys.savedBrightness)
         DisplayBrightness.set(0.5)
-        log.info("Dimmed brightness \(current) → 0.5")
+        log.notice("Dimmed brightness \(current) → 0.5")
     }
 
     private func restoreBrightness() {
         guard let saved = defaults.object(forKey: Keys.savedBrightness) as? Double else { return }
         DisplayBrightness.set(Float(saved))
         defaults.removeObject(forKey: Keys.savedBrightness)
-        log.info("Restored brightness \(saved)")
+        log.notice("Restored brightness \(saved)")
     }
 
     // MARK: - Battery

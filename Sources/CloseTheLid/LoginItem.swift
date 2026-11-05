@@ -19,10 +19,10 @@ enum LoginItem {
             if wanted, svc.status != .enabled {
                 try svc.register()
                 UserDefaults.standard.set(here, forKey: pathKey)
-                log.info("Login item registered (status \(svc.status.rawValue))")
+                log.notice("Login item registered (status \(svc.status.rawValue))")
             } else if !wanted, svc.status == .enabled || svc.status == .requiresApproval {
                 try svc.unregister()
-                log.info("Login item unregistered")
+                log.notice("Login item unregistered")
             }
         } catch {
             log.error("Login item change failed: \(error.localizedDescription, privacy: .public)")
