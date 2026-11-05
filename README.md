@@ -48,3 +48,6 @@ Choose **Remove Sudo Rule…**, quit the app, then delete it from Applications. 
 run `sudo pmset -a disablesleep 0`.
 
 > ⚠️ With the lid closed and sleep disabled, the Mac can get warm in a bag. Use timed activation when you can.
+
+## License
+[MIT](LICENSE) © 2026 Bugra Sitemkar
